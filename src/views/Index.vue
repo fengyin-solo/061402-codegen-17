@@ -85,6 +85,13 @@
             <div class="action-desc">制作更高效的生存工具</div>
             <div class="action-cost">需要: 20木材, 10石头</div>
           </div>
+          
+          <div class="action-card kitchen-card" @click="goToKitchen">
+            <div class="action-icon">🍳</div>
+            <div class="action-title">中央厨房</div>
+            <div class="action-desc">管理食材、烹饪美食、分发餐食</div>
+            <div class="action-feature">✨ 餐食增益 · 成员排班</div>
+          </div>
         </div>
       </div>
       
@@ -134,7 +141,10 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { ElMessage, ElMessageBox } from 'element-plus';
+
+const router = useRouter();
 
 const resources = ref({
   food: 100,
@@ -224,6 +234,10 @@ const craftTools = () => {
   if (performAction('制作工具', { wood: 20, stone: 10 }, {}, 120000)) {
     addMessage('工具制作完成！你的工作效率提高了。');
   }
+};
+
+const goToKitchen = () => {
+  router.push('/kitchen');
 };
 
 const exploreCell = (index) => {
@@ -424,9 +438,19 @@ onMounted(() => {
 }
 
 .action-time,
-.action-cost {
+.action-cost,
+.action-feature {
   font-size: 12px;
   color: #999;
+}
+
+.kitchen-card {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%) !important;
+  border-color: #e6a23c !important;
+}
+
+.kitchen-card:hover {
+  box-shadow: 0 8px 25px rgba(230, 162, 60, 0.4) !important;
 }
 
 .map-panel {
